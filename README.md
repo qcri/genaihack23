@@ -5,6 +5,6 @@ Here are some sample code demostrate using LLM APIs:
 
   nextjs-openai-example - an example using nextjs and Azure OpenAI in Javascript
   
-  jupyter-notebook - python examples using Azure OpenAI and embeddings
+  jupyter-notebook - python examples and tutorials
   
   langchain-py - examples using LangChain in Python
