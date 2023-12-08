@@ -14,19 +14,27 @@ client = AzureOpenAI(
     azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 )
 
-memory=[]
 
-def produce_response(message, history):
+def produce_response(question, history):
     """
       message: new message from the user
       history: history of messages from user
     """
     model=os.getenv("MODEL_NAME")
+    # converting history into OpenAI message format
     messages = []
     for e in history:
       messages.append({"role": "system", "content": e[0]})
       messages.append({"role": "user", "content": e[1]})
-    messages.append({"role": "user", "content": message})
+
+    # adding the new message from the user
+    content = """all the relavent sentences related to the question:
+      Adnan was born in Qatar, and he liks football. He is a student at Qatar University.
+    """
+    content += question
+    messages.append({"role": "user", "content": content})
+
+    # call openAI API
     response = client.chat.completions.create(
       model=model,
       messages=messages,
