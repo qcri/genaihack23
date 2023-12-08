@@ -1,5 +1,4 @@
 import os
-import json
 import dotenv
 from openai import AzureOpenAI
 import gradio as gr
@@ -8,6 +7,7 @@ import gradio as gr
 dotenv.load_dotenv()
 
     
+# set up Azure OpenAI client
 client = AzureOpenAI(
     api_key=os.getenv("AZURE_OPENAI_APIKEY"),  
     api_version=os.getenv('OPEN_API_VERSION'),
@@ -17,10 +17,11 @@ client = AzureOpenAI(
 
 def produce_response(question, history):
     """
-      message: new message from the user
-      history: history of messages from user
+      question: user input, normally it is a question asked
+      history: chat history
     """
     model=os.getenv("MODEL_NAME")
+
     # converting history into OpenAI message format
     messages = []
     for e in history:
@@ -39,6 +40,8 @@ def produce_response(question, history):
       model=model,
       messages=messages,
     )
+
+    # return response to user
     return response.choices[0].message.content
 
 demo = gr.ChatInterface(
