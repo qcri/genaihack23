@@ -33,7 +33,11 @@ def produce_response(message, history):
     )
     return response.choices[0].message.content
 
-demo = gr.ChatInterface(produce_response)
+demo = gr.ChatInterface(
+  produce_response,
+  title="OpenAI Chatbot Example",
+  description="A chatbot example for QCRI Generative AI Hackathon 2023",
+  )
 
 if __name__ == "__main__":
     demo.launch()
